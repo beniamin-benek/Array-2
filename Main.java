@@ -6,13 +6,15 @@ public class Main {
 
     public static void main(String[] args) {
 
-        int[] array = {2, 10, 3, 4, 20, 5};
+        int[] array = {1, 10, 10, 2};
         //System.out.println(findTheBiggest(array));
         //System.out.println(findTheSmallest(array));
         //System.out.println(sum67v2(array));
         //System.out.println(bigDiff(array));
         //System.out.println(sum13(array));
-        System.out.println(Arrays.toString(tenRun(array)));
+        //System.out.println(Arrays.toString(tenRun(array)));
+        //System.out.println(sameEnds(array, 2));
+        System.out.println(Arrays.toString(withoutTen(array)));
 
 
     }
@@ -186,10 +188,10 @@ public class Main {
     //Given a number n, create and return a new int array of length n, containing the numbers 0, 1, 2, ... n-1.
     private static int[] fizzArray(int n) {
         if (n == 0) return new int[0];
-        int[] output = new int[n];
-        for (int i = 0; i < output.length; i++)
-            output[i] = i;
-        return output;
+        int[] outputList = new int[n];
+        for (int i = 0; i < outputList.length; i++)
+            outputList[i] = i;
+        return outputList;
     }
 
     //Given an array of ints, return true if every element is a 1 or a 4.
@@ -283,6 +285,93 @@ public class Main {
         nums[nums.length - 1] = first;
         return nums;
     }
+
+    //Given a number n, create and return a new string array of length n, containing the strings "0", "1" "2" .. through n-1.
+    private static String[] fizzArray2(int n) {
+        if (n <= 0) return new String[0];;
+        String[] outputList = new String[n];
+        for (int i = 0; i < n; i++)
+            outputList[i] = String.valueOf(i);
+        return outputList;
+    }
+
+    //Given an array of ints, return true if the array contains either 3 even or 3 odd values all next to each other.
+    private static boolean modThree(int[] nums) {
+        for (int i = 0; i < nums.length - 2; i++) {
+            if ((nums[i] % 2 == 0 && nums[i + 1] % 2 == 0 && nums[i + 2] % 2 == 0) || (nums[i] % 2 != 0 && nums[i + 1] % 2 != 0 && nums[i + 2] % 2 != 0))
+                return true;
+        }
+        return false;
+    }
+
+    //Return true if the group of N numbers at the start and end of the array are the same.
+    //For example, with {5, 6, 45, 99, 13, 5, 6}, the ends are the same for n=0 and n=2, and false for n=1 and n=3.
+    private static boolean sameEnds(int[] nums, int len) { //(*)
+        int frontSum = 0;
+        int endSum = 0;
+        for (int i = 0; i < len; i++)
+            frontSum = frontSum + nums[i];
+        for (int i = nums.length - 1; i >= nums.length - len; i--)
+            endSum = endSum + nums[i];
+
+        System.out.println(frontSum);
+        System.out.println(endSum);
+        return frontSum == endSum;
+    }
+
+//    public boolean sameEnds(int[] nums, int len) {
+//        for(int i = 0; i < len; i++) {
+//            if(nums[i] != nums[nums.length - len + i])
+//                return false;
+//        }
+//
+//        return true;
+//    }
+
+    //Return a version of the given array where all the 10's have been removed.
+    //The remaining elements should shift left towards the start of the array as needed, and the empty spaces a the end of the array should be 0. So {1, 10, 10, 2} yields {1, 2, 0, 0}.
+    private static int[] withoutTen(int[] nums) { //(*)
+        List<Integer> outputList = new ArrayList<>();
+        List<Integer> no10Indexes = new ArrayList<>();
+        List<Integer> numsList = new ArrayList<>();
+        for (Integer num : nums)
+            numsList.add(num);
+
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != 10)
+                no10Indexes.add(i);
+        }
+
+        for (int i = 0; i < numsList.size(); i++) {
+            if (i < no10Indexes.size())
+                outputList.add(numsList.get(no10Indexes.get(i)));
+            else
+                outputList.add(0);
+        }
+
+        return outputList.stream().mapToInt(i->i).toArray();
+    }
+
+//    public int[] withoutTen(int[] nums) {
+//        int i = 0;
+//
+//        while(i < nums.length && nums[i] != 10)
+//            i++;
+//
+//        for(int j = i + 1; j < nums.length; j++) {
+//            if(nums[j] != 10) {
+//                nums[i] = nums[j];
+//                nums[j] = 10;
+//                i++;
+//            }
+//        }
+//
+//        for( ; i < nums.length; i++)
+//            nums[i] = 0;
+//
+//        return nums;
+//    }
+
 }
 
 
