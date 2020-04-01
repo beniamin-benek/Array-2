@@ -6,7 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        int[] array = {1, 10, 10, 2};
+        int[] array = {1, 0, 0, 1};
         //System.out.println(findTheBiggest(array));
         //System.out.println(findTheSmallest(array));
         //System.out.println(sum67v2(array));
@@ -14,7 +14,7 @@ public class Main {
         //System.out.println(sum13(array));
         //System.out.println(Arrays.toString(tenRun(array)));
         //System.out.println(sameEnds(array, 2));
-        System.out.println(Arrays.toString(withoutTen(array)));
+        System.out.println(" -> " + Arrays.toString(zeroFront(array)));
 
 
     }
@@ -371,6 +371,67 @@ public class Main {
 //
 //        return nums;
 //    }
+
+    //Given a non-empty array of ints, return a new array containing the elements from the original array that come before the first 4 in the original array.
+    //The original array will contain at least one 4.
+    private static int[] pre4(int[] nums) {
+        if (nums.length == 0) return new int[0];
+
+        int outputLength = 0;
+        boolean first4Appearance = false;
+
+        for (int num : nums) {
+            if (!first4Appearance && num != 4)
+                outputLength++;
+            else
+                first4Appearance = true;
+        }
+
+        if (!first4Appearance) return new int[0];
+
+        int[] output = new int[outputLength];
+        for (int i = 0; i < outputLength; i++)
+            output[i] = nums[i]; //System.arraycopy(nums, 0, output, 0, outputLength);
+
+        return output;
+    }
+
+    //Given a non-empty array of ints, return a new array containing the elements from the original array that come after the last 4 in the original array.
+    //The original array will contain at least one 4.
+    private static int[] post4(int[] nums) {
+        int last4Index = 0;
+        boolean last4Appearance = false;
+        for (int i = nums.length - 1; i >= 0 ; i--) {
+            if (!last4Appearance && nums[i] == 4) {
+                last4Index = i;
+                last4Appearance = true;
+            }
+        }
+        int[] output = new int[nums.length - last4Index - 1];
+        for (int i = 0; i < nums.length - last4Index - 1; i++) {
+            output[i] = nums[i + last4Index + 1];
+        }
+        return output;
+    }
+
+    //Return an array that contains the exact same numbers as the given array, but rearranged so that all the zeros are grouped at the start of the array.
+    private static int[] zeroFront(int[] nums) {
+        int[] output = new int[nums.length];
+        int index = 0;
+        for (int num : nums) {
+            if (num == 0) {
+                output[index] = 0;
+                index++;
+            }
+        }
+        for (int num : nums) {
+            for (int j = index; j < output.length; j++) {
+                if (num != 0)
+                    output[j] = num;
+            }
+        }
+        return output;
+    }
 
 }
 
