@@ -433,6 +433,95 @@ public class Main {
         return output;
     }
 
+    //Given arrays nums1 and nums2 of the same length, for every element in nums1, consider the corresponding element in nums2 (at the same index).
+    //Return the count of the number of times that the two elements differ by 2 or less, but are not equal.
+    private static int matchUp(int[] nums1, int[] nums2) {
+        int counter = 0;
+        for (int i = 0; i < nums1.length; i++) {
+            if (nums1[i] != nums2[i] && Math.abs(nums1[i] - nums2[i]) <= 2)
+                counter++;
+        }
+        return counter;
+    }
+
+    //Given an array of ints, return true if it contains no 1's or it contains no 4's.
+    private static boolean no14(int[] nums) {
+        boolean has1 = false;
+        boolean has4 = false;
+        for (int num : nums) {
+            if (num == 1)
+                has1 = true;
+            if (num == 4)
+                has4 = true;
+        }
+        return !has1 || !has4;
+    }
+
+    //Given an array of ints, return true if the array contains a 2 next to a 2 or a 4 next to a 4, but not both.
+    private static boolean either24(int[] nums) {
+        boolean has22 = false;
+        boolean has44 = false;
+        for (int i = 0; i < nums.length - 1; i++) {
+            if (nums[i] == 2 && nums[i + 1] == 2)
+                has22 = true;
+            else if (nums[i] == 4 && nums[i + 1] == 4)
+                has44 = true;
+        }
+        return has22 != has44; //(has22 || has44) && !(has22 && has44);
+    }
+
+    //Given an array of ints, return true if the array contains two 7's next to each other, or there are two 7's separated by one element, such as with {7, 1, 7}.
+    private static boolean has77(int[] nums) {
+        boolean hasTwo7 = false;
+        boolean hasTwoSeparated7 = false;
+        for (int i = 0; i < nums.length - 1; i++) {
+            if (nums[i] == 7 && nums[i + 1] == 7)
+                hasTwo7 = true;
+        }
+        for (int i = 0; i < nums.length -2; i++) {
+            if (nums[i] == 7 && nums[i + 2] == 7)
+                hasTwoSeparated7 = true;
+        }
+        return hasTwo7 || hasTwoSeparated7;
+    }
+
+    //Given an array of ints, return true if there is a 1 in the array with a 2 somewhere later in the array.
+    private static boolean has12(int[] nums) {
+        int oneIndex = -1;
+        int twoIndex = -1;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == 1)
+                oneIndex = i;
+            if (nums[i] == 2)
+                twoIndex = i;
+        }
+        return oneIndex != -1 && twoIndex != -1 && oneIndex < twoIndex;
+    }
+
+    private static boolean has12V2(int[] nums) {
+        boolean found1 = false;
+        for (int num : nums) {
+            if (num == 1)
+                found1 = true;
+            if (found1 && num == 2)
+                return true;
+        }
+        return false;
+    }
+
+    //Given start and end numbers, return a new array containing the sequence of integers from start up to but not including end, so start=5 and end=10 yields {5, 6, 7, 8, 9}.
+    private static int[] fizzArray3(int start, int end) {
+        if (start >= end) return new int[0];
+        int[] output = new int[end - start];
+        int index = 0;
+        for (int i = start; i < end; i++) {
+            output[index] = i; //output[i - start] = i
+            index++;
+        }
+        return output;
+    }
+
+
 }
 
 
