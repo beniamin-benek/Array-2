@@ -521,9 +521,43 @@ public class Main {
         return output;
     }
 
+    //Return an array that contains the exact same numbers as the given array, but rearranged so that all the even numbers come before all the odd numbers.
+    private static int[] evenOdd(int[] nums) {
+        //if (nums.length == 0) return new int[0];
+        int[] output = new int[nums.length];
+        int index = 0;
+        for (int num : nums) {
+            if (num  % 2 == 0) {
+                output[index] = num;
+                index++;
+            }
+        }
+        for (int num : nums) {
+            if (num % 2 != 0) {
+                output[index] = num;
+                index++;
+            }
+        }
+        return output;
+    }
+
+    //Consider the series of numbers beginning at start and running up to but not including end, so for example start=1 and end=5 gives the series 1, 2, 3, 4.
+    //Return a new String[] array containing the string form of these numbers, except for multiples of 3, use "Fizz" instead of the number, for multiples of 5 use "Buzz", and for multiples of both 3 and 5 use "FizzBuzz".
+    private static String[] fizzBuzz(int start, int end) {
+        if (start >= end) return new String[0];
+        String[] output = new String[end - start];
+        for (int i = start; i < end; i++) {
+            if (i % 3 == 0 && i % 5 == 0)
+                output[i - start] = "FizzBuzz";
+            else if (i % 3 == 0)
+                output[i - start] = "Fizz";
+            else if (i % 5 == 0)
+                output[i - start] = "Buzz";
+            else
+                output[i - start] = String.valueOf(i);
+        }
+        return output;
+    }
+
 
 }
-
-
-
-
